@@ -1,0 +1,33 @@
+{% extends "base_dashboard.html" %}
+
+{% block sidebar %}
+	<li class="nav-header">Orders</li>
+	<li><a href="/dashboard">Dashboard</a></li>
+	<li><a href="#">Notifications <span class="badge">1</span></a></li>
+	<li><a href="#">Order History</a></li>
+	<li><a href="#">Ongoing orders <span class="badge badge-warning">4</span></a></li>
+	<li class="nav-header">Restaurant</li>
+	<li><a href="restaurant">Restaurant info</a></li>
+	<li class="active"><a href="#">Menu sections</a></li>
+	<li><a href="items">Menu list</a></li>
+	<li class="nav-header">User</li>
+	<li><a href="/admin">Admin panel</li>
+	<li><a href="/logout">Log out</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+<div class="well">
+
+	<h2>Menu sections</h2>
+	{% if menu_sections %}
+		{% for section in menu_sections %}
+			<input type="text" disabled class="input-block-level" placeholder="{{section.title}}">
+		{% endfor %}
+	{% else %}
+		<p> There are not menu sections yet. You can create one using the admin panel</p>
+	{% endif %}
+    
+</div>
+</div><!--/span-->
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends "base_dashboard.html" %}
+
+{% block sidebar %}
+              <li class="nav-header">Orders</li>
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li><a href="#">Notifications <span class="badge">1</span></a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Ongoing orders <span class="badge badge-warning">4</span></a></li>
+              <li class="nav-header">Restaurant</li>
+              <li><a href="restaurant">Restaurant info</a></li>
+              <li><a href="sections">Menu sections</a></li>
+              <li class="active"><a href="#">Menu list</a></li>
+              <li class="nav-header">User</li>
+              <li><a href="/admin">Admin panel</li>
+              <li><a href="/logout">Log out</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+<div class="well">
+	<h2>Menu items</h2>
+    {% if menu_items %}
+        {% for section, items in menu_items.items %}
+        	<div class="well">
+	        <h4>{{ section }}</h4>
+            <table class="table table-bordered">
+			    <thead>
+			    <tr>
+				    <th>Name</th>
+				    <th>Description</th>
+				    <th>Price</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+	        	{% for item in items %}
+	        	<tr>
+		    		<td>{{ item.name }}</td>
+		    		<td>{{ item.description }}</td>
+		    		<td>{{ item.price }}</td>
+	    		</tr>
+				{% endfor %}
+				</tbody>
+				</table>
+		    </div>
+		{% endfor %}
+
+	{% else %}
+		<p> There are not me items yet. You can create one using the admin panel</p>
+	{% endif %}
+		    
+</div>
+</div><!--/span-->
+{% endblock %}
