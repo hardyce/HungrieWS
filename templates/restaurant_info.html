@@ -1,0 +1,62 @@
+{% extends "base_dashboard.html" %}
+
+{% block sidebar %}
+	<li class="nav-header">Orders</li>
+	<li><a href="/dashboard">Dashboard</a></li>
+	<li><a href="/dashboard/order_notifications">Notifications</a></li>
+	<li><a href="/dashboard/order-history">Order History</a></li>
+	<li><a href="/dashboard/ongoing-orders">Ongoing orders
+	{% if n_ongoing_orders > 0 %}
+           <span class="badge badge-warning">{{ n_ongoing_orders }}</span>
+    {% endif %}</a></li>
+	<li class="nav-header">Restaurant</li>
+	<li class="active"><a href="#">Restaurant info</a></li>
+	<li><a href="/dashboard/sections">Menu sections</a></li>
+	<li><a href="/dashboard/items">Menu list</a></li>
+	<li class="nav-header">User</li>
+	<li><a href="/admin">Admin panel</li>
+	<li><a href="/logout">Log out</a></li>
+{% endblock %}
+
+{% block content %}
+	<div class="span9">
+	<div class="well">
+	<div class="pull-right">
+		{% if restaurant %}
+			<a href="/admin/restaurantManagement/restaurant/{{ restaurant.id }}" class="btn btn-inverse"><i class="icon-white icon-edit"></i> Edit restaurant</a>
+		{% else %}
+			<a href="/admin/restaurantManagement/restaurant/" class="btn btn-inverse"><i class="icon-white icon-edit"></i> Register restaurant</a>
+		{% endif %}
+	</div>
+	<h2>Restaurant information</h2>
+	{% if restaurant %}
+	
+		<p><strong>Name:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.name}}">
+		<p><strong>Street 1:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.street1}}">
+		<p><strong>Street 2:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.street2}}">
+		<p><strong>Postcode:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.postcode}}">
+		<p><strong>City:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.city}}">
+		<p><strong>Country:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.country}}">
+		<p><strong>Phone:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.phone}}">
+		<p><strong>Email:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.email}}">	
+		<p><strong>Preparation time:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.preparation_time}}">	
+		<p><strong>Minimum delivery:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.delivery_minimum}}">	
+		<p><strong>Delivery cost:</strong></p>
+		<input type="text" disabled class="input-block-level" name="username" placeholder="{{restaurant.delivery_cost}}">	 
+	{% else %}
+		<p> You have not registered a restaurant yet. You can create one using the admin panel</p>
+	{% endif %}
+	
+	</div>
+	</div><!--/span-->
+{% endblock %}

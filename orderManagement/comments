@@ -1,0 +1,32 @@
+The serializer used to have a nested serializer with this source code
+
+"""
+Fields
+"""
+
+class MenuPriceField(serializers.RelatedField):
+    def to_native(self, value):
+        return str(value.price)
+    
+class MenuNameField(serializers.RelatedField):
+    def to_native(self, value):
+        return str(value.name)
+    
+class MenuSectionField(serializers.RelatedField):
+    def to_native(self, value):
+        return str(value.menu_category)
+    
+"""
+Nested Serializers
+"""
+
+class NestedOrderItemSerializer(serializers.HyperlinkedModelSerializer):
+    name = MenuNameField(source='menu_item')
+    price = MenuPriceField(source='menu_item')
+    menu_section = MenuSectionField(source='menu_item')
+    
+    class Meta:
+        model = OrderItem
+        #exclude = ('url',)
+        #fields=('menu_section', 'price', 'name',)
+        

@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %} Hungrie Dashboard {% endblock %}
+
+{% block specific_styles %}
+  <style type="text/css">
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+    .sidebar-nav {
+      padding: 9px 0;
+    }
+
+    @media (max-width: 980px) {
+      /* Enable use of floated navbar text */
+      .navbar-text.pull-right {
+        float: none;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block base_navbar %} 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+        
+          <a class="brand" href="/dashboard"><strong>Hungrie dashboard</strong></a>
+          
+          <div class="nav-collapse collapse">
+			<ul class="nav pull-right">
+		    <li class="dropdown">
+			    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown">
+			    {{ username }}
+			    <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			    	<li><a href="/admin">Admin panel</a></li>
+			    	<li class="divider"></li>
+					<li><a href="/logout">Log out</a></li>
+				</ul>
+		    </li>
+		    </ul>
+            <p class="navbar-text pull-right">
+              Logged in as 
+            </p>
+            <ul class="nav">
+              {% block navbar %}
+	              <li class="active"><a href="/dashboard">Home</a></li>
+	              <li><a href="#about">About</a></li>
+	              <li><a href="#contact">Contact</a></li>
+			  {% endblock%}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+	<div class="row-fluid">
+	  <div class="span3">
+	    <div class="well sidebar-nav">
+	      <ul class="nav nav-list">
+	        {% block sidebar %}
+		        <li class="nav-header">Orders</li>
+		        <li class="active"><a href="/dashboard">Dashboard</a></li>
+		        <li><a href="/dashboard/order_notifications">Notifications </a></li>
+		        <li><a href="/dashboard/order-history">Order History</a></li>
+				<li><a href="/dashboard/ongoing-orders">Ongoing orders 
+				{% if n_ongoing_orders > 0 %}
+              		<span class="badge badge-warning">{{ n_ongoing_orders }}</span>
+              	{% endif %}
+         	    </a>
+              	</li>		         
+              	<li class="nav-header">Restaurant</li>
+		        <li><a href="/dashboard/restaurant">Restaurant info</a></li>
+		        <li><a href="/dashboard/sections">Menu sections</a></li>
+		        <li><a href="/dashboard/items">Menu list</a></li>
+		        <li class="nav-header">User</li>
+		        <li><a href="/admin">Admin panel</li>
+		        <li><a href="/logout">Log out</a></li>
+	        {% endblock %}
+	      </ul>
+	    </div><!--/.well -->
+	  </div><!--/span-->
+	    
+	  {% block content %}  {% endblock %}
+	   
+	</div><!--/row-->
+</div>
+{% endblock %}

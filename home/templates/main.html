@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %} Hungrie! {% endblock %}
+
+{% block base_navbar %} 
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+        
+          <a class="brand" href="/dashboard"><strong>Hungrie Service</strong></a>
+          
+          <div class="nav-collapse collapse">
+			<ul class="nav pull-right">
+		    <li class="dropdown">
+			    <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown">
+			    {{ username }}
+			    <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+			    	<li><a href="#">Profile</a></li>
+			    	<li class="divider"></li>
+					<li><a href="/logout">Log out</a></li>
+				</ul>
+		    </li>
+		    </ul>
+            <p class="navbar-text pull-right">
+              Logged in as 
+            </p>
+            <ul class="nav">
+              {% block navbar %}
+	              <li class="active"><a href="/home">Home</a></li>
+	              <li><a href="#about">About</a></li>
+	              <li><a href="#contact">Contact</a></li>
+			  {% endblock%}
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+<div class="row-fluid">
+	<br>
+	<br>
+	<br>
+	
+		<div id="search_window">
+		<center>
+			<div class="well" style="text-align: center; vertical-align: middle;">
+			  <h4><strong>Insert your location:</strong></h4>
+			  <br>
+			  <input class="input-xxlarge search-query" type="text"id="search_box">
+			  <br>
+			  <br>		  
+			  <button class="btn  btn-info" id="restaurant_button"><i class="icon-white icon-search"></i> Search!</button>
+			  <br>
+			</div>
+		</center>
+		</div>
+</div>
+<div class="row-fluid">
+	<div class="span6">	
+		<div id="order_window">
+				<div class="well">
+				<h4>Restaurants</h4>
+				<div id="restaurant" >
+				</div>
+				
+				<br>
+				
+				<h4>Menus</h4> 
+				<div id="menu">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="container-fluid">
+<div class="row-fluid">
+	<div id="notification_window">
+		<div class="span6">
+	<div class="well">
+		<h4>Order status</h4>
+		<div class="status">
+			Waiting...
+		</div>
+	</div>
+	</div>
+</div>
+	<div id="address_window">
+		<div class="span6">
+		<div class="well">
+			<h4><strong>Customer address </strong> </h4>
+			<br>
+			<form id="address_form">
+			Street1:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="street1"><br>
+			Street2:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="street2"><br>
+			Postcode:&nbsp;&nbsp;&nbsp;<input type="text" name="postcode"><br>
+			City:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="city"><br>
+			Phone:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="phone"><br>
+			</form>
+			<br>
+			<button class="btn btn-success" id="order_button"><i class="icon-white icon-shopping-cart"></i> Order now</button>
+		</div>
+	</div>
+
+
+</div>
+
+	<div class="span6">
+	<div id="order_info_window">
+		<div class="well">
+			<span id="total" class="label label-success laber-large pull-right">Total: 0 €</span>
+			<h4>Order info</h4>
+			<div id="order">
+				<div id="order_restaurant" style="visibility: hidden;">
+				</div>
+			</div>
+			<div id="order_item">
+			</div>
+		</div>		
+	</div>
+	
+	
+	<div id="log">
+	</div>
+			
+</div>
+</div>
+
+</div>
+
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"> </script>
+<script type="text/javascript" src="/static/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/hungrajax.js"></script>
+{% endblock %}

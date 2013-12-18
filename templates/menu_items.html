@@ -1,0 +1,64 @@
+{% extends "base_dashboard.html" %}
+
+{% block sidebar %}
+              <li class="nav-header">Orders</li>
+              <li><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/dashboard/order_notifications">Notifications </a></li>
+              <li><a href="/dashboard/order-history">Order History</a></li>
+              <li><a href="/dashboard/ongoing-orders">Ongoing orders 
+				{% if n_ongoing_orders > 0 %}
+			           <span class="badge badge-warning">{{ n_ongoing_orders }}</span>
+			    {% endif %}</a></li>
+              <li class="nav-header">Restaurant</li>
+              <li><a href="/dashboard/restaurant">Restaurant info</a></li>
+              <li><a href="/dashboard/sections">Menu sections</a></li>
+              <li class="active"><a href="#">Menu list</a></li>
+              <li class="nav-header">User</li>
+              <li><a href="/admin">Admin panel</li>
+              <li><a href="/logout">Log out</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+<div class="well">
+  	<div class="pull-right">
+		{% if 0 == menu_items|length %}
+			<a href="/admin/restaurantManagement/menusection/" class="btn btn-inverse"><i class="icon-white icon-edit"></i> Add items</a>
+		{% endif %}
+	</div>
+	<h2>Menu items</h2>
+    {% if menu_items %}
+        {% for section, items in menu_items.items %}
+        	<div class="well">
+        		<div class="pull-right">
+					<a href="/admin/restaurantManagement/menusection/{{ section.id }}" class="btn btn-inverse"><i class="icon-white icon-edit"></i> Edit items</a>
+				</div>
+	        <h4>{{ section.title }}</h4>
+            <table class="table table-bordered">
+			    <thead>
+			    <tr>
+				    <th>Name</th>
+				    <th>Description</th>
+				    <th>Price</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+	        	{% for item in items %}
+	        	<tr>
+		    		<td>{{ item.name }}</td>
+		    		<td>{{ item.description }}</td>
+		    		<td>{{ item.price }} €</td>
+	    		</tr>
+				{% endfor %}
+				</tbody>
+				</table>
+		    </div>
+		{% endfor %}
+
+	{% else %}
+		<p> There are not menu items yet. You can create one using the admin panel</p>
+	{% endif %}
+		    
+</div>
+</div><!--/span-->
+{% endblock %}

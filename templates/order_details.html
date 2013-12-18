@@ -1,0 +1,71 @@
+{% extends "base_dashboard.html" %}
+
+{% block sidebar %}
+              <li class="nav-header">Orders</li>
+              <li class="active"><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/dashboard/order_notifications">Notifications</li>
+              <li><a href="/dashboard/order-history">Order History</a></li>
+              <li><a href="/dashboard/ongoing-orders">Ongoing orders 
+              {% if n_ongoing_orders > 0 %}
+              	<span class="badge badge-warning">{{ n_ongoing_orders }}</span>
+              {% endif %}
+              </a>
+              </li>
+              <li class="nav-header">Restaurant</li>
+              <li><a href="/dashboard/restaurant">Restaurant info</a></li>
+              <li><a href="/dashboard/sections">Menu sections</a></li>
+              <li><a href="/dashboard/items">Menu list</a></li>
+              <li class="nav-header">User</li>
+              <li><a href="/admin">Admin panel</li>
+              <li><a href="/logout">Log out</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="span9">
+<div class="well">
+		{% if accepted %}
+		<div class="alert alert-success">
+			The order was accepted.
+		</div>
+		{% endif %}
+		{% if rejected %}
+		<div class="alert alert-warning">
+			The order was declined
+		</div>
+		{% endif %}
+	<h2>Order details</h2>
+    {% if items %}
+    <div class="well">
+    {% if order %}
+    <span class="label label-success laber-large pull-right">Total: {{ order.total }} €</span>
+    {% endif %}
+    <table class="table ">
+	    <thead>
+	    <tr>
+		    <th>Name</th>	    
+		    <th>Description</th>
+		    <th>Price</th>
+	    </tr>
+	    </thead>
+	    <tbody>        	    
+        {% for item in items %}
+	        	<tr>
+		    		<td>{{ item.name }}</td>	        	
+		    		<td>{{ item.description }}</td>
+		    		<td>{{ item.price }} €</td>
+	    		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+		{% if order.status < 2 %}
+		<a href="/dashboard/order-details/{{ order.id }}/accept" class="btn btn-success"><i class="icon-white icon-ok"></i> Accept order</a>
+		<a href="/dashboard/order-details/{{ order.id }}/reject" class="btn btn-danger"><i class="icon-white icon-remove-circle"></i> Decline order</a>
+	    </div>
+	    {% endif %}
+	{% else %}
+		<p> {{ error }}</p>
+	{% endif %}
+		    
+</div>
+</div><!--/span-->
+{% endblock %}
